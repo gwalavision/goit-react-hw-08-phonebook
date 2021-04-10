@@ -3,7 +3,11 @@ import ContactsListItem from '../ContactsListItem';
 import ContactsFinderInput from '../ContactsFinderInput';
 import { useSelector } from 'react-redux';
 import Loader from 'react-loader-spinner';
-import { getContacts, getFilterValue, getLoading } from '../../redux/selectors';
+import {
+  getContacts,
+  getFilterValue,
+  getLoading,
+} from '../../redux/contacts/selectors';
 
 const ContactsList = ({ title }) => {
   const contacts = useSelector(getContacts);

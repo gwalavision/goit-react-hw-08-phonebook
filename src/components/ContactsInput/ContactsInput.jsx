@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types';
 import { v4 as uuid4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../redux/operations';
-import { setNameQueryInput, setNumberQueryInput } from '../../redux/actions';
+import { addContact } from '../../redux/contacts/operations';
+import {
+  setNameQueryInput,
+  setNumberQueryInput,
+} from '../../redux/contacts/actions';
 import {
   getContacts,
   getNameQuery,
   getNumberQuery,
-} from '../../redux/selectors';
+} from '../../redux/contacts/selectors';
 import React from 'react';
 
 const ContactsInput = ({ title }) => {
