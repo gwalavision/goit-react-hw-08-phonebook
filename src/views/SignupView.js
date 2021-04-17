@@ -6,6 +6,7 @@ const SignupView = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [inputType, setInputType] = useState('password');
 
   const dispatch = useDispatch();
 
@@ -44,6 +45,10 @@ const SignupView = () => {
     resetForm();
   };
 
+  const handleCheckbox = e => {
+    e.target.checked ? setInputType('text') : setInputType('password');
+  };
+
   return (
     <>
       <h1>Create your account</h1>
@@ -64,14 +69,18 @@ const SignupView = () => {
         <label>
           Password
           <input
-            type="password"
+            type={inputType}
             name="password"
             value={password}
             onChange={handleChange}
           />
         </label>
         <label>
-          <input type="checkbox" name="passwordCheckbox" />
+          <input
+            type="checkbox"
+            name="passwordCheckbox"
+            onClick={handleCheckbox}
+          />
           Show password
         </label>
         <button type="submit">Sign Up</button>

@@ -1,50 +1,45 @@
 import { combineReducers, createReducer } from '@reduxjs/toolkit';
-import {
-  addContactRequest,
-  addContactSuccess,
-  addContactFailure,
-  deleteContactRequest,
-  deleteContactSuccess,
-  deleteContactFailure,
-  fetchContactRequest,
-  fetchContactSuccess,
-  fetchContactFailure,
-  filterContacts,
-  setNameQueryInput,
-  setNumberQueryInput,
-} from './actions';
+import contactsActions from './actions';
+
+console.log();
 
 const items = createReducer([], {
-  [fetchContactSuccess]: (_, { payload }) => payload,
-  [addContactSuccess]: (state, { payload }) => [...state, payload],
+  [contactsActions.fetchContactSuccess]: (_, { payload }) => payload,
+  [contactsActions.addContactSuccess]: (state, { payload }) => [
+    ...state,
+    payload,
+  ],
 
-  [deleteContactSuccess]: (state, { payload }) =>
+  [contactsActions.deleteContactSuccess]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
 });
 
 const loading = createReducer(false, {
-  [addContactRequest]: () => true,
-  [addContactSuccess]: () => false,
-  [addContactFailure]: () => false,
+  [contactsActions.addContactRequest]: () => true,
+  [contactsActions.addContactSuccess]: () => false,
+  [contactsActions.addContactFailure]: () => false,
 
-  [deleteContactRequest]: () => true,
-  [deleteContactSuccess]: () => false,
-  [deleteContactFailure]: () => false,
+  [contactsActions.deleteContactRequest]: () => true,
+  [contactsActions.deleteContactSuccess]: () => false,
+  [contactsActions.deleteContactFailure]: () => false,
 
-  [fetchContactRequest]: () => true,
-  [fetchContactSuccess]: () => false,
-  [fetchContactFailure]: () => false,
+  [contactsActions.fetchContactRequest]: () => true,
+  [contactsActions.fetchContactSuccess]: () => false,
+  [contactsActions.fetchContactFailure]: () => false,
 });
 
 const filter = createReducer('', {
-  [filterContacts]: (_, { payload }) => payload,
+  [contactsActions.filterContacts]: (_, { payload }) => payload,
 });
 
 const query = createReducer(
   { name: '', number: '' },
   {
-    [setNameQueryInput]: (state, { payload }) => ({ ...state, name: payload }),
-    [setNumberQueryInput]: (state, { payload }) => ({
+    [contactsActions.setNameQueryInput]: (state, { payload }) => ({
+      ...state,
+      name: payload,
+    }),
+    [contactsActions.setNumberQueryInput]: (state, { payload }) => ({
       ...state,
       number: payload,
     }),

@@ -5,6 +5,7 @@ import { authOperations } from '../redux/auth';
 const LoginView = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [inputType, setInputType] = useState('password');
 
   const dispatch = useDispatch();
 
@@ -39,11 +40,9 @@ const LoginView = () => {
   };
 
   const handleCheckbox = e => {
-    // console.log(e);
-    // if (e.target.input.checked) {
-    //   e.target.input.firstElementChild.type === 'text';
-    // }
+    e.target.checked ? setInputType('text') : setInputType('password');
   };
+
   return (
     <>
       <h1>Please, log in to get into your profile</h1>
@@ -60,11 +59,13 @@ const LoginView = () => {
         <label>
           Password
           <input
-            type="password"
+            type={inputType}
             name="password"
             value={password}
             onChange={handleChange}
           />
+        </label>
+        <label>
           <input
             type="checkbox"
             name="passwordCheckbox"
@@ -72,6 +73,7 @@ const LoginView = () => {
           />
           Show password
         </label>
+        <button type="submit">Log In</button>
       </form>
     </>
   );

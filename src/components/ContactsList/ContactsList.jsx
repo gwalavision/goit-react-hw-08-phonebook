@@ -2,17 +2,12 @@ import PropTypes from 'prop-types';
 import ContactsListItem from '../ContactsListItem';
 import ContactsFinderInput from '../ContactsFinderInput';
 import { useSelector } from 'react-redux';
-import Loader from 'react-loader-spinner';
-import {
-  getContacts,
-  getFilterValue,
-  getLoading,
-} from '../../redux/contacts/selectors';
+import { getContacts, getFilterValue } from '../../redux/contacts/selectors';
+import useStyles from './ContactsList.styles';
 
 const ContactsList = ({ title }) => {
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilterValue);
-  const isLoading = useSelector(getLoading);
 
   const getVisibleContacts = (allContacts, value) => {
     const normalizedFilter = value.toLowerCase();
@@ -23,21 +18,17 @@ const ContactsList = ({ title }) => {
 
   const filteredContacts = getVisibleContacts(contacts, filter);
 
+  const c = useStyles();
+
   return (
-    <div>
+    <div className={c.container}>
       <h2 className="header">{title}</h2>
       <ContactsFinderInput />
 
-      {isLoading ? (
-        <Loader
-          type="TailSpin"
-          color="#000"
-          height={60}
-          width={60}
-          timeout={1000}
-        />
+      {contacts.length === 0 ? (
+        <b>Add your first contact</b>
       ) : (
-        <ul>
+        <ul className={c.list}>
           {filteredContacts.map(({ name, id, number }) => (
             <ContactsListItem name={name} number={number} key={id} id={id} />
           ))}
